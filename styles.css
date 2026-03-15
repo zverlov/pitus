@@ -400,39 +400,72 @@ main {
 }
 
 
-/* ----- Krimskrams / Jokes ----- */
+/* ----- Krimskrams / Post-it Wall ----- */
+
+.jokes-wall {
+  background: #c8a97a;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 75%, rgba(0,0,0,0.08) 0%, transparent 50%);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem 3rem;
+}
 
 .jokes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2.25rem;
 }
 
+/* Post-it colors — warm tones that fit the orange/blue palette */
 .joke-card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
-  border-top: 4px solid var(--orange);
-  font-size: 0.975rem;
-  line-height: 1.65;
-  color: #333;
-  transition: transform 0.18s, box-shadow 0.18s;
+  background: #FFF9C4;
+  border-radius: 2px;
+  padding: 1.5rem 1.5rem 2.25rem;
+  box-shadow: 4px 6px 14px rgba(0,0,0,0.28), 0 1px 3px rgba(0,0,0,0.12);
+  position: relative;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #2a2a2a;
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* slight paper texture via bottom fold */
 }
 
+/* Colour variants */
+.joke-card:nth-child(4n+1) { background: #FFF9C4; } /* yellow */
+.joke-card:nth-child(4n+2) { background: #FFE0B2; } /* light orange — brand */
+.joke-card:nth-child(4n+3) { background: #FFF3E0; } /* peach */
+.joke-card:nth-child(4n)   { background: #F0F4C3; } /* lime-cream */
+
+/* Rotation — 7-step cycle so colours and angles don't repeat together */
+.joke-card:nth-child(7n+1) { transform: rotate(-2.5deg); }
+.joke-card:nth-child(7n+2) { transform: rotate(1.5deg); }
+.joke-card:nth-child(7n+3) { transform: rotate(-1deg); }
+.joke-card:nth-child(7n+4) { transform: rotate(2.5deg); }
+.joke-card:nth-child(7n+5) { transform: rotate(-2deg); }
+.joke-card:nth-child(7n+6) { transform: rotate(1deg); }
+.joke-card:nth-child(7n)   { transform: rotate(-1.5deg); }
+
+/* Thumbtack pin */
+.joke-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle at 38% 32%, #dd3300, #7a1500);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.45), inset 0 -1px 2px rgba(0,0,0,0.25);
+  z-index: 2;
+}
+
+/* Hover — straighten and lift, MUST come after nth-child rules */
 .joke-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-}
-
-.joke-card em {
-  display: block;
-  font-style: normal;
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #eee;
+  transform: rotate(0deg) scale(1.05) translateY(-6px);
+  box-shadow: 8px 12px 24px rgba(0,0,0,0.32);
+  z-index: 10;
 }
 
 
@@ -700,7 +733,12 @@ footer a {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .jokes-wall {
+    padding: 1.5rem 1rem 2rem;
+  }
+
   .jokes-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
